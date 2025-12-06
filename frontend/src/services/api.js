@@ -1,10 +1,12 @@
 import axios from 'axios';
 
+// Use environment variable for API URL or fallback to proxy in development
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_URL || '/api',
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
 });
 
 // Request interceptor
