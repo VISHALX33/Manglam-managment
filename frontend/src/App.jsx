@@ -7,6 +7,7 @@ import Members from './pages/Members';
 import Attendance from './pages/Attendance';
 import Payments from './pages/Payments';
 import Reports from './pages/Reports';
+import InstallPWA from './components/InstallPWA';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         pauseOnHover
         theme="light"
       />
+      <InstallPWA />
       <Layout>
         <Routes>
           <Route path="/" element={<Dashboard />} />
