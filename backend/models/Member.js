@@ -28,7 +28,7 @@ const memberSchema = new mongoose.Schema({
   },
   joiningDate: {
     type: Date,
-    default: Date.now
+    required: false
   },
   address: {
     type: String,

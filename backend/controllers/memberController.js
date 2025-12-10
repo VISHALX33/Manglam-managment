@@ -59,7 +59,7 @@ export const getMemberById = async (req, res) => {
 // Create new member
 export const createMember = async (req, res) => {
   try {
-    const { name, phone, foodTime, paymentPlan, planAmount, address, emergencyContact, initialPayment } = req.body;
+    const { name, phone, foodTime, paymentPlan, planAmount, joiningDate, address, emergencyContact, initialPayment } = req.body;
 
     // Check if phone already exists
     const existingMember = await Member.findOne({ phone });
@@ -76,6 +76,7 @@ export const createMember = async (req, res) => {
       foodTime,
       paymentPlan,
       planAmount,
+      joiningDate: joiningDate || new Date(),
       address,
       emergencyContact
     });
