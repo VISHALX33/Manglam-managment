@@ -39,8 +39,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           <FaUtensils className="text-3xl" />
           {isOpen && (
             <div>
-              <h1 className="text-xl font-bold">Manglam</h1>
-              <p className="text-xs text-primary-200">Mass Management</p>
+              <h1 className="text-xl font-bold">Mess</h1>
+              <p className="text-xs text-primary-200">Mess Management</p>
             </div>
           )}
         </div>
@@ -69,7 +69,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       {isOpen && (
         <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-primary-600">
           <div className="text-xs text-primary-200 text-center">
-            <p>© 2024 Manglam Mass</p>
+            <p>© 2024 Manglam Mess</p>
             <p className="mt-1">All rights reserved</p>
           </div>
         </div>

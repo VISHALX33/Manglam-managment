@@ -10,6 +10,7 @@ const AddMemberModal = ({ isOpen, onClose, onSuccess }) => {
     foodTime: '2 times',
     paymentPlan: 'monthly',
     planAmount: 3300,
+    joiningDate: new Date().toISOString().split('T')[0], // Today's date
     address: '',
     emergencyContact: '',
     // Payment fields
@@ -74,6 +75,7 @@ const AddMemberModal = ({ isOpen, onClose, onSuccess }) => {
         foodTime: formData.foodTime,
         paymentPlan: formData.paymentPlan,
         planAmount: formData.planAmount,
+        joiningDate: formData.joiningDate,
         address: formData.address,
         emergencyContact: formData.emergencyContact
       };
@@ -197,6 +199,19 @@ const AddMemberModal = ({ isOpen, onClose, onSuccess }) => {
               min="0"
               required
               readOnly={formData.paymentPlan !== 'custom'}
+            />
+          </div>
+
+          {/* Joining Date */}
+          <div>
+            <label className="label">Joining Date *</label>
+            <input
+              type="date"
+              name="joiningDate"
+              value={formData.joiningDate}
+              onChange={handleChange}
+              className="input-field"
+              required
             />
           </div>
 

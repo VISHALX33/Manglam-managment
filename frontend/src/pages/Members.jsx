@@ -148,92 +148,110 @@ const Members = () => {
               <p className="text-gray-500">No members found</p>
             </div>
           ) : (
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Member
-                  </th>
-                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Phone
-                  </th>
-                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
-                    Food Time
-                  </th>
-                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
-                    Payment Plan
-                  </th>
-                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell">
-                    Joining Date
-                  </th>
-                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {members.map((member) => (
-                  <tr key={member._id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-3 md:px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <div className="h-10 w-10 bg-primary-100 rounded-full flex items-center justify-center">
-                          <span className="text-primary-600 font-semibold">
-                            {member.name.charAt(0).toUpperCase()}
-                          </span>
-                        </div>
-                        <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900">{member.name}</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-3 md:px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center text-sm text-gray-900">
-                        <FaPhone className="text-gray-400 mr-2" />
-                        {member.phone}
-                      </div>
-                    </td>
-                    <td className="px-3 md:px-6 py-4 whitespace-nowrap hidden sm:table-cell">
-                      <span className="badge badge-info">
-                        <FaUtensils className="mr-1" />
-                        {member.foodTime}
-                      </span>
-                    </td>
-                    <td className="px-3 md:px-6 py-4 whitespace-nowrap hidden md:table-cell">
-                      <span className={`badge ${getPlanBadge(member.paymentPlan)}`}>
-                        {getPlanLabel(member.paymentPlan, member.planAmount)}
-                      </span>
-                    </td>
-                    <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm text-gray-900 hidden lg:table-cell">
-                      {format(new Date(member.joiningDate), 'MMM dd, yyyy')}
-                    </td>
-                    <td className="px-3 md:px-6 py-4 whitespace-nowrap">
-                      <span className={`badge ${member.isActive ? 'badge-success' : 'badge-danger'}`}>
-                        {member.isActive ? 'Active' : 'Inactive'}
-                      </span>
-                    </td>
-                    <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <div className="flex space-x-2">
-                        <button
-                          onClick={() => handleEdit(member)}
-                          className="text-blue-600 hover:text-blue-900 transition-colors"
-                        >
-                          <FaEdit className="text-lg" />
-                        </button>
-                        <button
-                          onClick={() => handleDelete(member._id, member.name)}
-                          className="text-red-600 hover:text-red-900 transition-colors"
-                        >
-                          <FaTrash className="text-lg" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+           <table className="min-w-full divide-y divide-gray-200">
+  <thead className="bg-gray-50">
+    <tr>
+      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Member</th>
+      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
+      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">Food Time</th>
+      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">Payment Plan</th>
+      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell">Joining Date</th>
+
+      {/* NEW FIELDS */}
+      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden xl:table-cell">Last Payment</th>
+      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden xl:table-cell">Next Due</th>
+      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden xl:table-cell">Balance</th>
+
+      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody className="bg-white divide-y divide-gray-200">
+    {members.map((member) => (
+      <tr key={member._id} className="hover:bg-gray-50 transition-colors">
+        
+        {/* Member Info */}
+        <td className="px-3 md:px-6 py-4 whitespace-nowrap">
+          <div className="flex items-center">
+            <div className="h-10 w-10 bg-primary-100 rounded-full flex items-center justify-center">
+              <span className="text-primary-600 font-semibold">
+                {member.name.charAt(0).toUpperCase()}
+              </span>
+            </div>
+            <div className="ml-4">
+              <div className="text-sm font-medium text-gray-900">{member.name}</div>
+              <div className="text-xs text-gray-500">{member.address || ''}</div>
+              <div className="text-xs text-gray-500">
+                {member.emergencyContact ? `Emergency: ${member.emergencyContact}` : ''}
+              </div>
+            </div>
+          </div>
+        </td>
+
+        {/* Phone */}
+        <td className="px-3 md:px-6 py-4 whitespace-nowrap">
+          <div className="flex items-center text-sm text-gray-900">
+            {member.phone}
+          </div>
+        </td>
+
+        {/* Food Time */}
+        <td className="px-3 md:px-6 py-4 whitespace-nowrap hidden sm:table-cell">
+          <span className="badge badge-info">{member.foodTime || 'N/A'}</span>
+        </td>
+
+        {/* Payment Plan */}
+        <td className="px-3 md:px-6 py-4 whitespace-nowrap hidden md:table-cell">
+          <span className={`badge ${getPlanBadge(member.paymentPlan)}`}>
+            {getPlanLabel(member.paymentPlan, member.planAmount)}
+          </span>
+        </td>
+
+        {/* Joining Date */}
+        <td className="px-3 md:px-6 py-4 whitespace-nowrap hidden lg:table-cell">
+          {format(new Date(member.joiningDate), 'MMM dd, yyyy')}
+        </td>
+
+        {/* Last Payment */}
+        <td className="px-3 md:px-6 py-4 whitespace-nowrap hidden xl:table-cell">
+          {member.lastPaymentDate ? format(new Date(member.lastPaymentDate), 'MMM dd, yyyy') : '—'}
+        </td>
+
+        {/* Next Due */}
+        <td className="px-3 md:px-6 py-4 whitespace-nowrap hidden xl:table-cell">
+          {member.nextPaymentDue ? format(new Date(member.nextPaymentDue), 'MMM dd, yyyy') : '—'}
+        </td>
+
+        {/* Balance */}
+        <td className="px-3 md:px-6 py-4 whitespace-nowrap hidden xl:table-cell">
+          ₹{member.outstandingBalance || 0}
+        </td>
+
+        {/* Status */}
+        <td className="px-3 md:px-6 py-4 whitespace-nowrap">
+          <span className={`badge ${member.isActive ? 'badge-success' : 'badge-danger'}`}>
+            {member.isActive ? 'Active' : 'Inactive'}
+          </span>
+        </td>
+
+        {/* Actions */}
+        <td className="px-3 md:px-6 py-4 whitespace-nowrap">
+          <div className="flex space-x-2">
+            <button onClick={() => handleEdit(member)} className="text-blue-600 hover:text-blue-900">
+              <FaEdit className="text-lg" />
+            </button>
+            <button onClick={() => handleDelete(member._id, member.name)} className="text-red-600 hover:text-red-900">
+              <FaTrash className="text-lg" />
+            </button>
+          </div>
+        </td>
+
+      </tr>
+    ))}
+  </tbody>
+</table>
+
           )}
         </div>
       </div>
