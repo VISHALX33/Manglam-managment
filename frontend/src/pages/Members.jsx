@@ -241,9 +241,9 @@ const Members = () => {
             <button onClick={() => handleEdit(member)} className="text-blue-600 hover:text-blue-900">
               <FaEdit className="text-lg" />
             </button>
-            <button onClick={() => handleDelete(member._id, member.name)} className="text-red-600 hover:text-red-900">
+            {/* <button onClick={() => handleDelete(member._id, member.name)} className="text-red-600 hover:text-red-900">
               <FaTrash className="text-lg" />
-            </button>
+            </button> */}
           </div>
         </td>
 
